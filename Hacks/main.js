@@ -1,9 +1,10 @@
 let u;
-if(location.href.split("challenge/")[1].includes('single-player')){
-u= location.href.split("challenge/")[1].split('*single')[0]
-} else{
-u= location.href.split("challenge/")[1]
+if (location.href.split("challenge/")[1].includes('single-player')) {
+	u = location.href.split("challenge/")[1].split('*single')[0]
+} else {
+	u = location.href.split("challenge/")[1]
 }
+let resaults;
 fetch("https://kahoot.it/rest/challenges/" + location.href.split("challenge/")[1] + "/answers", {
 		"headers": {
 			"accept": "*/*",
@@ -28,32 +29,25 @@ fetch("https://kahoot.it/rest/challenges/" + location.href.split("challenge/")[1
 		for (let i = 0; i < r.challenge.kahoot.questions.length; i++) {
 			for (let o = 0; o < r.challenge.kahoot.questions[i].choices.length; o++) {
 				if (r.challenge.kahoot.questions[i].choices[o].correct === true) {
-                  if(typeof document.querySelectorAll('label')[0] !='undefined'){
-					if (document.querySelectorAll('label')[0].outerText === 'Select one or more answers!') {
-						console.log('quiz')
-						for (let h = 0; h < document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 gRAFXc')[0].childNodes.length; h++) {
-							if (document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 gRAFXc')[0].childNodes[h].outerText === r.challenge.kahoot.questions[i].choices[o].answer) {
-								document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 gRAFXc')[0].childNodes[h].click()
-							}
-						}
-					} else if(document.querySelectorAll('[font-size="2.8933333333333335"]').length === 2){
-						console.log('tof')
-						for (let h = 0; h < document.querySelectorAll('[font-size="2.8933333333333335"]').length; h++) {
-							if (document.querySelectorAll('[font-size="2.8933333333333335"]')[h].outerText === r.challenge.kahoot.questions[i].choices[o].answer) {
-								document.querySelectorAll('[font-size="2.8933333333333335"]')[h].click()
-							}
-						}
-                    }
-					} else {
-						console.log('original kahoot')
-						for (let h = 0; h < document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 dtiAQP')[0].childNodes.length; h++) {
+					console.log(r.challenge.kahoot.questions[i].choices[o].answer + ' ' + r.challenge.kahoot.questions[i].question.replaceAll('<b>', '').replaceAll('</b>', ''))
+					if (document.querySelectorAll('span')[0].outerText === r.challenge.kahoot.questions[i].question.replaceAll('<b>', '').replaceAll('</b>', '')) {
 
-							if (document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 dtiAQP')[0].childNodes[h].outerText === r.challenge.kahoot.questions[i].choices[o].answer) {
-								document.getElementsByClassName('sc-dkmKpi jsUBgC question-choices__QuestionChoices-sc-vfgbd-0 dtiAQP')[0].childNodes[h].click()
-							}
+						if (document.querySelectorAll('[data-functional-selector="answer-0"]')[0].textContent.replaceAll('Icon', '') === r.challenge.kahoot.questions[i].choices[o].answer.replaceAll('<b>', '').replaceAll('</b>', '')) {
+							document.querySelectorAll('[data-functional-selector="answer-0"]')[0].click()
+						}
+						if (document.querySelectorAll('[data-functional-selector="answer-1"]')[0].textContent.replaceAll('Icon', '') === r.challenge.kahoot.questions[i].choices[o].answer.replaceAll('<b>', '').replaceAll('</b>', '')) {
+							document.querySelectorAll('[data-functional-selector="answer-1"]')[0].click()
+						}
+						if (document.querySelectorAll('[data-functional-selector="answer-2"]')[0].textContent.replaceAll('Icon', '') === r.challenge.kahoot.questions[i].choices[o].answer.replaceAll('<b>', '').replaceAll('</b>', '')) {
+							document.querySelectorAll('[data-functional-selector="answer-2"]')[0].click()
+						}
+						if (document.querySelectorAll('[data-functional-selector="answer-3"]')[0].textContent.replaceAll('Icon', '') === r.challenge.kahoot.questions[i].choices[o].answer.replaceAll('<b>', '').replaceAll('</b>', '')) {
+							document.querySelectorAll('[data-functional-selector="answer-3"]')[0].click()
 						}
 
+						alert('The Answer Is:  ' + r.challenge.kahoot.questions[i].choices[o].answer.replaceAll('<b>', '').replaceAll('</b>', ''))
 					}
+
 				}
 			}
 		}
